@@ -24,13 +24,14 @@
                   <p class="mb-0">Enter your email and password to sign in</p>
                 </div>
                 <div class="card-body">
-                  <form role="form" class="text-start">
+                  <!-- <form role="form" class="text-start"> -->
                     <label>Email</label>
                     <soft-input
                       id="email"
                       type="email"
                       placeholder="Email"
                       name="email"
+                      v-model="datos.username"
                     />
                     <label>Password</label>
                     <soft-input
@@ -38,6 +39,7 @@
                       type="password"
                       placeholder="Password"
                       name="password"
+                      v-model="datos.password"
                     />
                     <soft-switch id="rememberMe" name="rememberMe" checked>
                       Remember me
@@ -48,10 +50,11 @@
                         variant="gradient"
                         color="success"
                         full-width
+                        v-on:click="loginAccion(this.datos)"
                         >Sign in
                       </soft-button>
                     </div>
-                  </form>
+                  <!-- </form> -->
                 </div>
                 <div class="px-1 pt-0 text-center card-footer px-lg-2">
                   <p class="mx-auto mb-4 text-sm">
@@ -95,10 +98,18 @@ import SoftInput from "@/components/SoftInput.vue";
 import SoftSwitch from "@/components/SoftSwitch.vue";
 import SoftButton from "@/components/SoftButton.vue";
 const body = document.getElementsByTagName("body")[0];
-import { mapMutations } from "vuex";
+import { mapMutations, mapActions } from "vuex";
 
 export default {
   name: "SignIn",
+   data() {
+    return {
+      datos:{
+        username:'',
+        password:''
+      }
+    };
+  },
   components: {
     Navbar,
     AppFooter,
@@ -117,7 +128,14 @@ export default {
     body.classList.add("bg-gray-100");
   },
   methods: {
+    ...mapActions(['login']),
     ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
+    loginAccion(data){
+      console.log(this.datos.username)
+      console.log(data)
+      
+      
+    }
   },
 };
 </script>
