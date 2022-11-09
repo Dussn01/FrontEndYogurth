@@ -88,6 +88,9 @@ export default {
     },
     getIcon: (icon) => (icon ? icon : null),
     hasIcon: (icon) => (icon ? "input-group" : null),
+    handleInput(event){
+      this.$emit("input", event.target.value);
+    }
   },
 };
 </script>

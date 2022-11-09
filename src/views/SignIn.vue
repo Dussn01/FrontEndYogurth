@@ -2,11 +2,11 @@
   <div class="container top-0 position-sticky z-index-sticky">
     <div class="row">
       <div class="col-12">
-        <navbar
+        <!-- <navbar
           is-blur="blur blur-rounded my-3 py-2 start-0 end-0 mx-4 shadow"
           btn-background="bg-gradient-success"
           :dark-mode="true"
-        />
+        /> -->
       </div>
     </div>
   </div>
@@ -19,46 +19,48 @@
               <div class="mt-8 card card-plain">
                 <div class="pb-0 card-header text-start">
                   <h3 class="font-weight-bolder text-success text-gradient">
-                    Welcome back
+                    Bienvenido 
                   </h3>
-                  <p class="mb-0">Enter your email and password to sign in</p>
+                  <p class="mb-0">Ingresa tus credenciales para ingresar</p>
                 </div>
                 <div class="card-body">
                   <!-- <form role="form" class="text-start"> -->
-                    <label>Email</label>
+                    <label>{{username}}</label>
                     <soft-input
-                      id="email"
-                      type="email"
-                      placeholder="Email"
-                      name="email"
-                      v-model="datos.username"
+                      id="Usuario"
+                      type="text"
+                      placeholder="Usuario"
+                      name="usuario"
+                      value="usuario"
+
+                      v-model="username"
                     />
-                    <label>Password</label>
-                    <soft-input
+                    <label>Contraseña</label>
+                    <!-- <soft-input
                       id="password"
                       type="password"
                       placeholder="Password"
                       name="password"
                       v-model="datos.password"
-                    />
-                    <soft-switch id="rememberMe" name="rememberMe" checked>
+                    /> -->
+                    <!-- <soft-switch id="rememberMe" name="rememberMe" checked>
                       Remember me
-                    </soft-switch>
+                    </soft-switch> -->
                     <div class="text-center">
                       <soft-button
                         class="my-4 mb-2"
                         variant="gradient"
                         color="success"
                         full-width
-                        v-on:click="loginAccion(this.datos)"
-                        >Sign in
+                        
+                        >Ingresar
                       </soft-button>
                     </div>
                   <!-- </form> -->
                 </div>
                 <div class="px-1 pt-0 text-center card-footer px-lg-2">
                   <p class="mx-auto mb-4 text-sm">
-                    Don't have an account?
+                    No estas registrado?
                     <router-link
                       :to="{ name: 'Sign Up' }"
                       class="text-success text-gradient font-weight-bold"
@@ -92,29 +94,24 @@
 </template>
 
 <script>
-import Navbar from "@/examples/PageLayout/Navbar.vue";
+// import Navbar from "@/examples/PageLayout/Navbar.vue"; 
 import AppFooter from "@/examples/PageLayout/Footer.vue";
 import SoftInput from "@/components/SoftInput.vue";
-import SoftSwitch from "@/components/SoftSwitch.vue";
+// import SoftSwitch from "@/components/SoftSwitch.vue";
 import SoftButton from "@/components/SoftButton.vue";
 const body = document.getElementsByTagName("body")[0];
 import { mapMutations, mapActions } from "vuex";
 
 export default {
   name: "SignIn",
-   data() {
-    return {
-      datos:{
-        username:'',
-        password:''
-      }
-    };
-  },
+  data: () => ({
+      username:''
+  }),
   components: {
-    Navbar,
+    // Navbar,
     AppFooter,
     SoftInput,
-    SoftSwitch,
+    // SoftSwitch,
     SoftButton,
   },
   created() {
@@ -130,12 +127,7 @@ export default {
   methods: {
     ...mapActions(['login']),
     ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
-    loginAccion(data){
-      console.log(this.datos.username)
-      console.log(data)
-      
-      
-    }
+ 
   },
 };
 </script>
