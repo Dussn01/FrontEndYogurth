@@ -25,24 +25,22 @@
                 </div>
                 <div class="card-body">
                   <!-- <form role="form" class="text-start"> -->
-                    <label>{{username}}</label>
+                    <label>Usuario</label>
                     <soft-input
                       id="Usuario"
                       type="text"
                       placeholder="Usuario"
                       name="usuario"
-                      value="usuario"
-
-                      v-model="username"
+                      @usuario="datos.username = $event"
                     />
-                    <label>ContraseÃ±a</label>
-                    <!-- <soft-input
+                    <label>Contraseña</label>
+                    <soft-input
                       id="password"
                       type="password"
-                      placeholder="Password"
+                      placeholder="Contrseña"
                       name="password"
-                      v-model="datos.password"
-                    /> -->
+                      @password="datos.password = $event"
+                    />
                     <!-- <soft-switch id="rememberMe" name="rememberMe" checked>
                       Remember me
                     </soft-switch> -->
@@ -52,7 +50,7 @@
                         variant="gradient"
                         color="success"
                         full-width
-                        
+                        @click="login(this.datos)"
                         >Ingresar
                       </soft-button>
                     </div>
@@ -105,7 +103,10 @@ import { mapMutations, mapActions } from "vuex";
 export default {
   name: "SignIn",
   data: () => ({
-      username:''
+    datos:{
+      username:'',
+      password:''
+    }
   }),
   components: {
     // Navbar,
@@ -127,7 +128,13 @@ export default {
   methods: {
     ...mapActions(['login']),
     ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
+    enviarDatos(datos){
+      console.log('datos')
+      console.log(datos)
+
+      this.login(datos);
+    }
+  }
  
-  },
 };
 </script>

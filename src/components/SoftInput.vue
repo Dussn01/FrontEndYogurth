@@ -13,6 +13,7 @@
         :value="value"
         :placeholder="placeholder"
         :isRequired="isRequired"
+        v-on:input="handleInput"
       />
       <span v-if="iconDir === 'right'" class="input-group-text">
         <i :class="getIcon(icon)"></i>
@@ -89,7 +90,9 @@ export default {
     getIcon: (icon) => (icon ? icon : null),
     hasIcon: (icon) => (icon ? "input-group" : null),
     handleInput(event){
-      this.$emit("input", event.target.value);
+      console.log(this.name)
+      console.log(event.target.value);
+      this.$emit(this.name, event.target.value);
     }
   },
 };
