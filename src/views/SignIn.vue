@@ -24,22 +24,22 @@
                   <p class="mb-0">Ingresa tus credenciales para ingresar</p>
                 </div>
                 <div class="card-body">
-                  <!-- <form role="form" class="text-start"> -->
+                  <form role="form" class="text-start" @submit.prevent="handleSubmit">
                     <label>Usuario</label>
                     <soft-input
                       id="Usuario"
                       type="text"
                       placeholder="Usuario"
                       name="usuario"
-                      @usuario="datos.username = $event"
+                      @usuario="username = $event"
                     />
-                    <label>Contraseña</label>
+                    <label>ContraseÃ±a</label>
                     <soft-input
                       id="password"
                       type="password"
-                      placeholder="Contrseña"
+                      placeholder="ContrseÃ±a"
                       name="password"
-                      @password="datos.password = $event"
+                      @password="password = $event"
                     />
                     <!-- <soft-switch id="rememberMe" name="rememberMe" checked>
                       Remember me
@@ -50,11 +50,10 @@
                         variant="gradient"
                         color="success"
                         full-width
-                        @click="login(this.datos)"
                         >Ingresar
                       </soft-button>
                     </div>
-                  <!-- </form> -->
+                  </form>
                 </div>
                 <div class="px-1 pt-0 text-center card-footer px-lg-2">
                   <p class="mx-auto mb-4 text-sm">
@@ -98,15 +97,14 @@ import SoftInput from "@/components/SoftInput.vue";
 // import SoftSwitch from "@/components/SoftSwitch.vue";
 import SoftButton from "@/components/SoftButton.vue";
 const body = document.getElementsByTagName("body")[0];
-import { mapMutations, mapActions } from "vuex";
+import { mapMutations } from "vuex";
 
 export default {
   name: "SignIn",
   data: () => ({
-    datos:{
       username:'',
-      password:''
-    }
+      password:'',
+      submitted: false
   }),
   components: {
     // Navbar,
@@ -114,6 +112,11 @@ export default {
     SoftInput,
     // SoftSwitch,
     SoftButton,
+  },
+  computed: {
+    logginIn(){
+      return this.$store.state.authentication.status.logginIn;
+    }
   },
   created() {
     this.toggleEveryDisplay();
@@ -124,16 +127,18 @@ export default {
     this.toggleEveryDisplay();
     this.toggleHideConfig();
     body.classList.add("bg-gray-100");
+    this.$store.dispatch('authentication/logout');
   },
   methods: {
-    ...mapActions(['login']),
     ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
-    enviarDatos(datos){
-      console.log('datos')
-      console.log(datos)
-
-      this.login(datos);
+   handleSubmit(){
+    this.submitted = true;
+    const {username, password} = this;
+    const {dispatch} = this.$store;
+    if(username && password){
+      dispatch('authentication/login', {username, password});
     }
+   }
   }
  
 };
