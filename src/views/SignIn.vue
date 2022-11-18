@@ -33,11 +33,11 @@
                       name="usuario"
                       @usuario="username = $event"
                     />
-                    <label>Contraseña</label>
+                    <label>ContraseÃ±a</label>
                     <soft-input
                       id="password"
                       type="password"
-                      placeholder="Contrseña"
+                      placeholder="ContrseÃ±a"
                       name="password"
                       @password="password = $event"
                     />
@@ -115,6 +115,11 @@ export default {
     // SoftSwitch,
     SoftButton,
   },
+  computed: {
+    logginIn(){
+      return this.$store.state.authentication.status.logginIn;
+    }
+  },
   created() {
     this.toggleEveryDisplay();
     this.toggleHideConfig();
@@ -124,17 +129,18 @@ export default {
     this.toggleEveryDisplay();
     this.toggleHideConfig();
     body.classList.add("bg-gray-100");
+    this.$store.dispatch('authentication/logout');
   },
   methods: {
     ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
-        handleSubmit () {
-            const { username, password } = this;
-            // const { dispatch } = this.$store;
-            console.log(username, password)
-            // if (username && password) {
-            //     dispatch('authentication/login', { username, password });
-            // }
-        }
+   handleSubmit(){
+    this.submitted = true;
+    const {username, password} = this;
+    const {dispatch} = this.$store;
+    if(username && password){
+      dispatch('authentication/login', {username, password});
+    }
+   }
   }
  
 };

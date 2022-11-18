@@ -1,6 +1,10 @@
 import { createStore } from "vuex";
 import bootstrap from "bootstrap/dist/js/bootstrap.min.js";
 
+import { alert } from './alert.module';
+import { authentication } from './authentication.module';
+import { users } from './users.module';
+
 export default createStore({
   state: {
     hideConfigButton: false,
@@ -71,4 +75,9 @@ export default createStore({
     // }
   },
   getters: {},
+  modules:{
+    alert,
+    authentication,
+    users
+  }
 });
