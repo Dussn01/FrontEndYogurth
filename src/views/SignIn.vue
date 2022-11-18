@@ -24,14 +24,14 @@
                   <p class="mb-0">Ingresa tus credenciales para ingresar</p>
                 </div>
                 <div class="card-body">
-                  <!-- <form role="form" class="text-start"> -->
+                  <form role="form" class="text-start" @submit.prevent="handleSubmit">
                     <label>Usuario</label>
                     <soft-input
                       id="Usuario"
                       type="text"
                       placeholder="Usuario"
                       name="usuario"
-                      @usuario="datos.username = $event"
+                      @usuario="username = $event"
                     />
                     <label>Contraseña</label>
                     <soft-input
@@ -39,7 +39,7 @@
                       type="password"
                       placeholder="Contrseña"
                       name="password"
-                      @password="datos.password = $event"
+                      @password="password = $event"
                     />
                     <!-- <soft-switch id="rememberMe" name="rememberMe" checked>
                       Remember me
@@ -50,11 +50,11 @@
                         variant="gradient"
                         color="success"
                         full-width
-                        @click="login(this.datos)"
+                        
                         >Ingresar
                       </soft-button>
                     </div>
-                  <!-- </form> -->
+                  </form>
                 </div>
                 <div class="px-1 pt-0 text-center card-footer px-lg-2">
                   <p class="mx-auto mb-4 text-sm">
@@ -98,15 +98,15 @@ import SoftInput from "@/components/SoftInput.vue";
 // import SoftSwitch from "@/components/SoftSwitch.vue";
 import SoftButton from "@/components/SoftButton.vue";
 const body = document.getElementsByTagName("body")[0];
-import { mapMutations, mapActions } from "vuex";
+import { mapMutations } from "vuex";
 
 export default {
   name: "SignIn",
   data: () => ({
-    datos:{
+    
       username:'',
       password:''
-    }
+    
   }),
   components: {
     // Navbar,
@@ -126,14 +126,15 @@ export default {
     body.classList.add("bg-gray-100");
   },
   methods: {
-    ...mapActions(['login']),
     ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
-    enviarDatos(datos){
-      console.log('datos')
-      console.log(datos)
-
-      this.login(datos);
-    }
+        handleSubmit () {
+            const { username, password } = this;
+            // const { dispatch } = this.$store;
+            console.log(username, password)
+            // if (username && password) {
+            //     dispatch('authentication/login', { username, password });
+            // }
+        }
   }
  
 };

@@ -66,9 +66,9 @@ export default createStore({
     setCardBackground({ commit }, payload) {
       commit("cardBackground", payload);
     },
-    login( data){
-      console.log(data, 'Aqui fue')
-    }
+    // login( data){
+    //   console.log(data, 'Aqui fue')
+    // }
   },
   getters: {},
 });
