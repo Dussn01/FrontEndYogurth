@@ -7,15 +7,18 @@ export const userService = {
     // getAll
 };
 
-function login(username, password) {
+function login(username, contra) {
+    console.log(username, contra)
+    var email = 'john@mail.com'
+    var password = 'changeme'
+    // console.log('XXXXXXXXXX--------XXXXXXXXXXXX')
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json',
-        "Access-Control-Allow-Origin": "*"},
-        body: JSON.stringify({ username, password })
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify({ email, password })
     };
-    console.log(requestOptions)
-    return fetch('localhost:4000/api/auth/signin', requestOptions)
+    // console.log(requestOptions)
+    return fetch('https://api.escuelajs.co/api/v1/auth/login', requestOptions)
         .then(handleResponse)
         .then(user => {
             console.log('user')
